@@ -9,3 +9,20 @@ Confusion Matrix:
  [ 1  0  0  0  0  3  4  0  0]
  [ 1  0  1  0  0  1  0 88  0]
  [ 0  0  0  0  0  0  0  0 83]]
+
+Classification Report:
+                precision    recall  f1-score   support
+
+      business       0.96      0.94      0.95        83
+      disaster       1.00      0.33      0.50         3
+ entertainment       0.95      0.93      0.94        87
+human interest       0.00      0.00      0.00         1
+           law       0.88      0.64      0.74        11
+      politics       0.91      0.94      0.92        63
+ social issues       0.57      0.50      0.53         8
+        sports       0.98      0.97      0.97        91
+    technology       0.89      1.00      0.94        83
+
+      accuracy                           0.93       430
+     macro avg       0.79      0.69      0.72       430
+  weighted avg       0.93      0.93      0.93       430
