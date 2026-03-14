@@ -3,24 +3,43 @@ from src.data_preprocessing import preprocess_data
 from src.train import train_model
 from src.evaluate import evaluate_model
 
-st.title("PolicyPal Model Deployment")
+st.set_page_config(page_title="News Classification System", layout="wide")
 
-st.write("This app preprocesses data, trains the model, and evaluates performance.")
+st.title("📰 News Classification Project")
+st.write("Machine Learning pipeline for News Category Classification")
 
-if st.button("Run Pipeline"):
+# Sidebar controls
+st.sidebar.header("Pipeline Controls")
 
-    st.write("Step 1: Preprocessing Data...")
-    preprocess_data()
-    st.success("Data Preprocessing Completed")
+run_preprocess = st.sidebar.button("Run Data Preprocessing")
+run_train = st.sidebar.button("Train Model")
+run_evaluate = st.sidebar.button("Evaluate Model")
 
-    st.write("Step 2: Training Model...")
-    X_test, y_test = train_model()
-    st.success("Model Training Completed")
+# Preprocessing
+if run_preprocess:
+    st.subheader("Data Preprocessing")
+    with st.spinner("Processing dataset..."):
+        preprocess_data()
+    st.success("Data preprocessing completed")
 
-    st.write("Step 3: Evaluating Model...")
-    results = evaluate_model(X_test, y_test)
+# Training
+if run_train:
+    st.subheader("Model Training")
+    with st.spinner("Training model..."):
+        X_test, y_test = train_model()
+    st.success("Model training completed")
+    st.session_state["X_test"] = X_test
+    st.session_state["y_test"] = y_test
 
-    st.success("Model Evaluation Completed")
+# Evaluation
+if run_evaluate:
+    st.subheader("Model Evaluation")
 
-    st.write("Evaluation Results:")
-    st.write(results)
+    if "X_test" in st.session_state:
+        evaluate_model(
+            st.session_state["X_test"],
+            st.session_state["y_test"]
+        )
+        st.success("Evaluation completed")
+    else:
+        st.warning("Please train the model first.")
